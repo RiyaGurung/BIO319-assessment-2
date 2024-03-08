@@ -1,0 +1,17 @@
+1) Firstly, I had to move my messy txt file into the project space so I could read it in, which I did with the read.table function and assigned it to 'spotifydf'. The tidyr and dplyr packages were installed and it was loaded into the session with library so I could start tidying my data.
+
+2) All the genres had their own separate column, but they were observations (as seen in the dictionary) so I put them all under one named 'playlist_genre'. The observations in the separate genre columns were also put into another column - 'playlist_subgenre.' This was done to follow the rules of tidy data, where each variable (in this case: genre and subgenre) needs to be a column and observations need to be in rows. 
+
+3) The subgenre had a lot of NAs and there were also many repeats of rows, which did not make sense since one playlist could not have multiple playlist genres. Therefore, I got rid of the rows with the NAs by removing whatever NAs were found in subgenre. This removed all repeats and made more sense as the playlists only had 1 genre - following the third rule of tidy data.
+
+4) Then I focused on cleaning up the columns, so I corrected the spelling for the track name column and separated the danceability.energy column. These 2 columns had been fused along with their values, so I separated the values using the delim argument and specifying to separate them with the '_' that was connecting them. The next piece of code was not necessary, but putting the playlist genre and subgenre columns next to the other playlist columns would be more efficient for the colleague, since they wouldn't have to scroll all the way to the end of the table. 
+
+5) Using the search bar in the table, I found that 'Bad Bunny' was named incorrectly - I could have just used 'Sunny' as the pattern but I wanted to ensure I wasn't affecting other artist with 'Sunny' in their name. I couldn't find any other artists that were mentioned as having misspelled names in my data. This was not necessary, but I changed 'r.b' to 'r&b' These all follow the third tidy data rule. 
+
+6) I made a note of the incorrect album release dates with the year '75', so I searched up all the ones that had '75-' through the search bar in the table. For the first few, I searched up their album release dates on Google and all of them were released in 2019. I assumed the rest were too, so I used gsub to correct them accordingly. Furthermore, I saw that the mode column had letters in some of the values, when the dictionary stated the only values it should contain are either 1 or 0. I removed anything that was not a 0 or 1 and made the column numeric so the colleague could easily manipulate it. 
+
+7) Here, the columns that were initially characters were converted to numerics, so that again the colleague could access it more easily. I used str to check their classes. 
+
+8) Lastly, the instrumentalness column had values that were greater than 1, and by looking at the real spotify data on git, I saw they were incorrect. I realised the correct values were less than 0.5 - I wanted to use if_else to say these values are '<0.5' but it was mixing classes, going against the third rule. So I resorted to having NAs, which should be okay since the colleague is mostly looking at danceability.
+
+9) Saved my output. 
